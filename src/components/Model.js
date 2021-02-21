@@ -12,6 +12,8 @@ function Model(){
 
     const [model, setModel] = useState('body');
     const [file, setFile] = useState(null);
+    const [uploadProgress, setUploadProgress] = useState(100);
+    const [uploadSuccess, setUploadSuccess] = useState(false);
 
     const handleModelSelected = (e)=>{
         setModel(e.target.value);
@@ -22,26 +24,42 @@ function Model(){
         setFile(e.target.files[0]);
     };
 
-    const upload = async (e)=>{
+    const upload = (e)=>{
         e.preventDefault();
         let fileName = new Date().getTime() + '.h5'
         const storageRef = firebase.storage().ref('model/' + model + '/' + fileName);
         const db = firebase.firestore();
-        try {
-            await storageRef.put(file);
-            console.log('upload model success');
-            let url = await storageRef.getDownloadURL();
-            await db.collection('model').doc(model).set({
-                timestamp:new Date().getTime(),
-                fileName,
-                model,
-                url
-            });
-            console.log('save data success');
-        } catch (error) {
-            console.log(error);
-            throw error;
-        }
+        // start progress
+        setUploadSuccess(false);
+        setUploadProgress(0);
+        //start upload
+        storageRef.put(file).on('state_changed', 
+            (snapshot) => {
+                let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                setUploadProgress(parseInt(progress));
+            }, 
+            (error) => {
+                console.log(error);
+                throw error;
+            },async () => {
+                //upload success
+                setUploadSuccess(true);
+                // console.log('upload model success');
+                try {
+                    let url = await storageRef.getDownloadURL();
+                    await db.collection('model').doc(model).set({
+                        timestamp:new Date().getTime(),
+                        fileName,
+                        model,
+                        url
+                    });
+                    // console.log('save data success');
+                } catch (error) {
+                    console.log(error);
+                    throw error;
+                }
+            }
+        );
     };
 
 
@@ -72,12 +90,12 @@ function Model(){
                             </Form.Group>
 
                             {/* progress bar */}
-                            {/* {UploadProgress !== 0 && 
+                            {uploadProgress !== 100 && 
                                 <div className="progress">
-                                    <div className="progress-bar" role="progressbar" style={{width: UploadProgress+"%"}} aria-valuenow={UploadProgress.toString()} aria-valuemin="0" aria-valuemax="100">{UploadProgress}%</div>
+                                    <div className="progress-bar" role="progressbar" style={{width: uploadProgress + '%'}} aria-valuenow={uploadProgress.toString()} aria-valuemin="0" aria-valuemax="100">{uploadProgress}%</div>
                                 </div>
                             }
-                            { !UploadSuccess ? "" : <div>Upload Success!</div>} */}
+                            {uploadSuccess && <div>Upload Success!</div>}
                             <Button className="mt-3" variant="primary" type="submit">
                                 Upload
                             </Button>
