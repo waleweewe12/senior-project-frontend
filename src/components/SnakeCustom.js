@@ -80,7 +80,8 @@ function SnakeCustom({match}){
             for(let i = 0; i < imageUrl[snakePart].length; i++){
                 let response = await axios.get(imageUrl[snakePart][i].url, config);
                 let file = new File([response.data], 'snake.jpg');
-                zip.file(match.params.snakename + '_' + snakePart + '_' + (i + 1) + '.jpg', file, {blob:true});
+                zip.folder(match.params.snakename + '_' + snakePart)
+                .file(match.params.snakename + '_' + snakePart + '_' + (i + 1) + '.jpg', file, {blob:true});
             }
             let content = await zip.generateAsync({type:"blob"}, (metadata)=>{
                 console.log("progression: " + metadata.percent.toFixed(2) + " %");
