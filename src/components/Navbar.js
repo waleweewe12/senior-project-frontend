@@ -17,9 +17,8 @@ function myNavbar(){
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="mr-auto">
                         <Link style={linkStyle} to="/">Home</Link>
-                        <Link style={linkStyle}  to="/addimage">Add Image</Link>
-                        <Link style={linkStyle}  to="/userresult">User Result</Link>
-                        <Link style={linkStyle}  to="/model">Model</Link>
+                        <Link style={linkStyle}  to="/upload">Upload</Link>
+                        <Link style={linkStyle}  to="/userresult">Result</Link>
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>

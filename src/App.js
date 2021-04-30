@@ -7,12 +7,10 @@ import {
 } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import SnakeReviews from './components/SnakeReviews';
-import AddImage from './components/AddImage';
 import SnakeCustom from './components/SnakeCustom';
 import Navbar from './components/Navbar';
-import SendImage from './components/SendImage';
 import UserResult from './components/UserResult'; 
-import Model from './components/Model';
+import Upload from './components/Upload';
 
 function App() {
 
@@ -27,15 +25,12 @@ function App() {
           <Route exact path="/home">
             <Redirect to="/reviews" />
           </Route>
-          <Route path="/addimage" component={AddImage} />
+          <Route path="/upload" component={Upload} />
           <Route exact path="/reviews" component={SnakeReviews} />
           <Route exact path="/reviews/:snakename" component={SnakeCustom} />
           <Route path="/userresult" component={UserResult} />
-          <Route path="/model" component={Model} />
         </Switch>
       </Router>
-      {/* <UserResult /> */}
-      {/* <SendImage /> */}
     </div>
   );
 }

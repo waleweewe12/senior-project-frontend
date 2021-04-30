@@ -67,6 +67,11 @@ function Model(){
         <>
             <Container className="mt-5">
                 <Row className="justify-content-center">
+                    <Col md={6}>
+                        <h1>อัพโหลด Model</h1>
+                    </Col>
+                </Row>
+                <Row className="justify-content-center">
                     <Col className="shadow-sm p-3 mb-5 bg-white rounded" md={6}>
                         <Form onSubmit={upload}>
                             <Form.Group>
