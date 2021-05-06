@@ -1,8 +1,13 @@
-import React from 'react'
-import {Button,Container,Row,Col,Card} from 'react-bootstrap'
-import {
-    Link
-  } from "react-router-dom" 
+import React from 'react';
+import { 
+    Button,
+    Container,
+    Row,
+    Col,
+    Card 
+} from 'react-bootstrap'
+import { Link } from "react-router-dom"; 
+import DownloadBar from './DownloadBar';
 
 function SnakeReviews({match}){
 
@@ -26,6 +31,9 @@ function SnakeReviews({match}){
     return(
         <div>
             <Container fluid>
+                <Row className="justify-content-center">
+                    <DownloadBar />
+                </Row>
                 <Row className="justify-content-center">
                     {
                         SnakeName.map((name,i)=>
