@@ -55,7 +55,6 @@ function DownloadBar(){
     <>
         <Col className="mt-5 mx-4">
             <h1>Download</h1>
-            {/* <Button variant="danger">รูปภาพทั้งหมด</Button>{' '} */}
             <Button variant="danger" onClick={() => {downloadImage("fullBody")}}>เต็มตัว</Button>{' '}
             <Button variant="secondary" onClick={() => {downloadImage("head")}}>หัว</Button>{' '}
             <Button variant="success" onClick={() => {downloadImage("mid")}}>ลาย</Button>{' '}
