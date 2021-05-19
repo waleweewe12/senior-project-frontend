@@ -1,4 +1,3 @@
-import { blob } from 'jszip/lib/support';
 import React, { useState, useEffect } from 'react';
 import {
     Container, 
@@ -33,7 +32,9 @@ function UserImage(){
 
     const handleSnakeTypeSelected = (e)=>{
         e.preventDefault();
-        snakeType[e.target.attributes['index'].value] = e.target.value;
+        let dummy = [...snakeType];
+        dummy[e.target.attributes['index'].value] = e.target.value;
+        setSnakeType(dummy);
     }
 
     const handleAddImageClicked = async (e)=>{
